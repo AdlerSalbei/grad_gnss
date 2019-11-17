@@ -1,0 +1,21 @@
+{
+    "name": "grad_gnss",
+    "prefix": "grad_gnss",
+    "author": "Salbei",
+    "files": [
+        "mod.cpp",
+        "logo_grad_ca.paa",
+        "LICENSE",
+        "README.md"
+    ],
+    "exclude": [
+      "*.psd",
+      "*.png",
+      "*.tga"
+  ],
+  "keyname": "{{prefix}}-{{version}}",
+  "signame": "{{prefix}}-{{version}}",
+  "releasebuild": [
+      "@zip"
+  ]
+}
