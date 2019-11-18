@@ -15,23 +15,19 @@
  * None
  *
  * Example:
- * ["GLONASS", [0,0,0], true, 10, 1] call grad_gnss_fnc_jammingSystem
+ * [] call grad_gnss_fnc_createSatellites
  *
  * Public: No
  */
 
- params ["_system"];
 
-private _amount = getNumber (configFile >> "grad_gnss" >> _system);
 private _satellites = [];
 
-for "_i" from 1 to _amount do {
-	private _pos = [worldSize/_i, worldSize/_i, 25000]; 
- 
-	private _obj = "Land_HelipadEmpty_F" createVehicle _pos; 
-	_obj setPosASL _pos;
+ {
+    private _obj = "Land_HelipadEmpty_F" createVehicle _x; 
+    _obj setPosASL _x;
 
-	_satellites pushBack _obj;
-};
+    _satellites pushBack _obj;
+ }forEach [[0,0,10000], [worldSize,0,10000], [0,worldSize,10000], [worldSize,worldSize,10000]];
 
-missionNamespace setVariable [[QGVAR(satellites) + "_" + format ["%1", _system], _satellites];
+missionNamespace setVariable [QGVAR(satellites), _satellites];

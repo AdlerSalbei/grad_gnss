@@ -23,22 +23,22 @@
 params ["_gnssSystem", "_position", "_bool",  ["_size", 0], ["_strength", 0]];
 
 private _jamZonesGVAR = QGVAR(jamSits) + "_" + format ["%1", _gnssSystem];
-private _jamZones = missionNamespace getVariable [_jamZonesGVAR, [];
+private _jamZones = missionNamespace getVariable [_jamZonesGVAR, []];
 
 if (_bool) then {
 
-	_jamZones pushBackUnique [_position, _size, _strength];
+    _jamZones pushBackUnique [_position, _size, _strength];
 
 } else {
 
-	{
-		_x params ["_oldPosition"];
+    {
+        _x params ["_oldPosition"];
 
-		if (_oldPosition isEqualTo _position) exitWith {
-			_jamZones deleteAt _forEachIndex;
-		};
-	}forEach _jamZones;
+        if (_oldPosition isEqualTo _position) exitWith {
+            _jamZones deleteAt _forEachIndex;
+        };
+    }forEach _jamZones;
 
-	missionNamespace setVariable [_jamZonesGVAR, _jamZones];
-	
+    missionNamespace setVariable [_jamZonesGVAR, _jamZones];
+    
 };
