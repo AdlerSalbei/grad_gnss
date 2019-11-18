@@ -10,6 +10,9 @@
  * 2: add or remove <BOOL>
  * 3: size <NUMBER or ARRAY>
  * 4: strength <NUMBER>
+ * 5: direction <NUMBER>
+ * 6: is a Rectangle <BOOL>
+ * 7: height <NUMBER>
  *
  * Return Value:
  * None
@@ -20,14 +23,27 @@
  * Public: No
  */
 
-params ["_gnssSystem", "_position", "_bool",  ["_size", 0], ["_strength", 0]];
+params [
+    "_gnssSystem", 
+    "_position", 
+    "_bool",  
+    ["_size", 1], 
+    ["_strength", 0], 
+    ["_dir", 0], 
+    ["_isRectangle", false],
+    ["_height", 5]
+];
 
-private _jamZonesGVAR = QGVAR(jamSits) + "_" + format ["%1", _gnssSystem];
+private _jamZonesGVAR = QGVAR(jamSites) + "_" + format ["%1", _gnssSystem];
 private _jamZones = missionNamespace getVariable [_jamZonesGVAR, []];
 
 if (_bool) then {
 
-    _jamZones pushBackUnique [_position, _size, _strength];
+    if (_size isEqualType 0) then {
+        _size = [_size, _size];
+    };
+
+    _jamZones pushBackUnique [_position, _size, _strength, _dir, _isRectangle, _height];
 
 } else {
 
